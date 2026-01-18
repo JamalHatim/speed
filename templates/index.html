@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NeoSpeed Test</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<style>
+body {
+  margin:0;
+  font-family:'Segoe UI', sans-serif;
+  background: linear-gradient(135deg,#0f172a,#1e293b);
+  color:white;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-height:100vh;
+}
+
+/* Navbar */
+header {
+  width:100%;
+  padding:15px 30px;
+  background:rgba(17,24,39,0.8);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky; top:0; z-index:1000;
+  backdrop-filter: blur(8px);
+}
+header .logo {font-size:24px; font-weight:bold;margin-left: 20px;}
+header nav a {color:white; text-decoration:none; margin-left:20px; font-weight:500; transition:0.3s;}
+header nav a:hover {color:#22c55e;}
+#langSelect {
+  margin-right: 20px;
+}
+
+/* Language selector */
+select {padding:5px 10px; border-radius:5px; margin-left:15px; font-size:14px; background:#1e293b; color:white; border:none;}
+
+/* Main content */
+main {
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:40px;
+  width:100%;
+  max-width:600px;
+  padding:20px;
+  position:relative;
+}
+
+/* Ads placeholders */
+.ad-left, .ad-right {
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:120px;
+  height:300px;
+  background:#1e293b;
+  border-radius:12px;
+  display:flex; justify-content:center; align-items:center;
+  font-size:14px; color:#94a3b8;
+}
+.ad-left {left:-140px;}
+.ad-right {right:-140px;}
+
+/* Chart */
+#chart {
+  width:350px;
+  height:350px;
+  position:relative;
+}
+.gear {
+  position:absolute; width:90px; height:90px; border:8px solid #22c55e;
+  border-top-color:transparent; border-radius:50%; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  animation:spin 3s linear infinite; z-index:0;
+}
+@keyframes spin {100%{transform:translate(-50%,-50%) rotate(360deg);}}
+
+/* Metrics cards */
+.metrics {
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  width:100%;
+}
+.metric-card {
+  flex:1;
+  background:#1e293b;
+  border-radius:12px;
+  padding:15px;
+  text-align:center;
+  box-shadow:0 0 10px rgba(0,0,0,0.5);
+  transition:0.3s;
+}
+.metric-card:hover {box-shadow:0 0 15px #22c55e;}
+.metric-card div:first-child {font-size:14px; color:#94a3b8; margin-bottom:5px;}
+.metric-card div:last-child {font-size:20px; font-weight:bold; color:#22c55e;}
+
+/* Start button */
+#btn {
+  padding:20px 50px;
+  font-size:22px;
+  border:none;
+  border-radius:50px;
+  background:#22c55e;
+  color:#0f172a;
+  font-weight:bold;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  box-shadow:0 0 20px #22c55e70;
+  transition:0.3s;
+}
+#btn:hover {box-shadow:0 0 30px #22c55e90;}
+#btn .icon {display:inline-block;}
+#btn.testing .icon {animation:spin 1s linear infinite;}
+
+/* Footer */
+footer {
+  padding:15px;
+  font-size:14px;
+  color:#94a3b8;
+  margin-top:20px;
+  text-align:center;
+}
+
+/* Responsive */
+@media(max-width:800px){
+  .ad-left, .ad-right {display:none;}
+  main {max-width:100%;}
+  .metrics {flex-direction:column; gap:10px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">NeoSpeed</div>
+  <nav>
+    <select id="langSelect">
+      <option value="en">English</option>
+      <option value="ar">العربية</option>
+      <option value="tz">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
+    </select>
+  </nav>
+</header>
+
+<main>
+  <div class="ad-left">Ad</div>
+  <div class="ad-right">Ad</div>
+
+  <div id="chart"><div class="gear"></div></div>
+
+  <button id="btn" onclick="startTest()">
+    <span class="icon">▶</span>
+    <span id="btnText">Go</span>
+  </button>
+
+  <div class="metrics">
+    <div class="metric-card"><div id="labelPing">Ping</div><div id="ping">-- ms</div></div>
+    <div class="metric-card"><div id="labelDownload">Download</div><div id="download">-- Mbps</div></div>
+    <div class="metric-card"><div id="labelUpload">Upload</div><div id="upload">-- Mbps</div></div>
+  </div>
+</main>
+
+<footer>© 2025 NeoSpeed.net. All Rights Reserved.</footer>
+
+<script src="js/speed.js"></script>
+
+</body>
+</html>
